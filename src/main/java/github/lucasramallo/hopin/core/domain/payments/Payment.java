@@ -1,0 +1,27 @@
+package github.lucasramallo.hopin.core.domain.payments;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity(name = "payments")
+@Table(name = "payments")
+@Data
+public class Payment {
+    @Id
+    @Column
+    private UUID id;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Method method;
+
+    @Column(nullable = false)
+    private BigDecimal amount;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+}
