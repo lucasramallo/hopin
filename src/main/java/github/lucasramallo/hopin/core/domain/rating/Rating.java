@@ -4,9 +4,13 @@ import github.lucasramallo.hopin.core.domain.customer.Customer;
 import github.lucasramallo.hopin.core.domain.driver.Driver;
 import github.lucasramallo.hopin.core.domain.trips.Trip;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Entity(name = "ratings")
+@Table(name = "ratings")
+@Data
 public class Rating {
     @Id
     @Column
