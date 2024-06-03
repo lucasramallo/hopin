@@ -22,6 +22,6 @@ public class Cab {
     @Column(nullable = false)
     private String color;
 
-    @Column(nullable = false)
+    @Column(name = "plate_num", nullable = false)
     private String plateNum;
 }

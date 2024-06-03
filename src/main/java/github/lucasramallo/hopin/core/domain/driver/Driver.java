@@ -20,12 +20,12 @@ public class Driver {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "cabID")
+    @JoinColumn(name = "cab_id")
     private Cab cab;
 
-    @Column(nullable = false)
-    private LocalDate DatedateOfBirth;
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 }

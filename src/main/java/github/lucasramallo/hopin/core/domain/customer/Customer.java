@@ -23,6 +23,6 @@ public class Customer {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 }

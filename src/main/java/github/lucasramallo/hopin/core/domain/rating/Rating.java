@@ -16,18 +16,15 @@ public class Rating {
     @Column
     private UUID id;
 
-    @Column(nullable = false)
     @ManyToOne
-    @JoinColumn(name = "customerID", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(nullable = false)
     @ManyToOne
-    @JoinColumn(name = "driverID", nullable = false)
+    @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 
-    @Column(nullable = false)
     @OneToOne
-    @JoinColumn(name = "tripID", nullable = false)
+    @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 }

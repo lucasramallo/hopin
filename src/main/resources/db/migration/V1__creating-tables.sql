@@ -2,60 +2,60 @@ CREATE TABLE customers (
     id UUID PRIMARY KEY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
-    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE cabs (
     id UUID PRIMARY KEY,
     model VARCHAR NOT NULL,
     color VARCHAR NOT NULL,
-    plateNum VARCHAR NOT NULL
+    plate_num VARCHAR NOT NULL
 );
 
-CREATE TYPE METHOD AS ENUM ('CREDIT_CARD', 'CASH', 'PIX');
+CREATE TYPE method AS ENUM ('CREDIT_CARD', 'CASH', 'PIX');
 
 CREATE TABLE payments (
     id UUID PRIMARY KEY,
-    method METHOD NOT NULL,
+    method method NOT NULL,
     amount MONEY NOT NULL,
-    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE drivers (
     id UUID PRIMARY KEY,
     name VARCHAR NOT NULL,
-    cabID UUID,
-    dateOfBirth DATE NOT NULL,
-    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (cabID) REFERENCES cabs(id) ON DELETE CASCADE
+    cab_id UUID,
+    date_of_birth DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cab_id) REFERENCES cabs(id) ON DELETE CASCADE
 );
 
-CREATE TYPE STATUS AS ENUM ('REQUESTED', 'ACCEPTED', 'STARTED', 'COMPLETED', 'CANCELLED');
+CREATE TYPE status AS ENUM ('REQUESTED', 'ACCEPTED', 'STARTED', 'COMPLETED', 'CANCELLED');
 
 CREATE TABLE trips(
     id UUID PRIMARY KEY,
-    customerID UUID,
-    driverID UUID,
-    paymentID UUID,
-    status STATUS NOT NULL,
+    customer_id UUID,
+    driver_id UUID,
+    payment_id UUID,
+    status status NOT NULL,
     source VARCHAR NOT NULL,
     destination VARCHAR NOT NULL,
-    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (paymentID) REFERENCES payments(id),
-    FOREIGN KEY (driverID) REFERENCES drivers(id),
-    FOREIGN KEY (customerID) REFERENCES customers(id)
+    FOREIGN KEY (payment_id) REFERENCES payments(id),
+    FOREIGN KEY (driver_id) REFERENCES drivers(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 CREATE TABLE ratings (
     id UUID PRIMARY KEY,
-    customerID UUID,
-    driverID UUID,
-    tripID UUID,
+    customer_id UUID,
+    driver_id UUID,
+    trip_id UUID,
     rating INT NOT NULL,
     feedback VARCHAR(255),
 
-    FOREIGN KEY (tripID) REFERENCES trips(id),
-    FOREIGN KEY (driverID) REFERENCES drivers(id),
-    FOREIGN KEY (customerID) REFERENCES customers(id)
+    FOREIGN KEY (trip_id) REFERENCES trips(id),
+    FOREIGN KEY (driver_id) REFERENCES drivers(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );

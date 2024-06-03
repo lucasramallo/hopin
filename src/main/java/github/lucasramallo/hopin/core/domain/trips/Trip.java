@@ -17,19 +17,16 @@ public class Trip {
     @Column
     private UUID id;
 
-    @Column(nullable = false)
     @ManyToOne
-    @JoinColumn(name = "customerID", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(nullable = false)
     @ManyToOne
-    @JoinColumn(name = "driverID", nullable = false)
+    @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 
-    @Column(nullable = false)
     @OneToOne
-    @JoinColumn(name = "paymentID", nullable = false)
+    @JoinColumn(name = "payment_id", nullable = false)
     private Payment payment;
 
     @Column(nullable = false)
@@ -41,6 +38,6 @@ public class Trip {
     @Column(nullable = false)
     private String destination;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 }
