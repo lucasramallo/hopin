@@ -1,6 +1,7 @@
 package github.lucasramallo.hopin.api.controllers;
 
 import github.lucasramallo.hopin.api.dtos.CreateDriverRequestDTO;
+import github.lucasramallo.hopin.core.domain.driver.Driver;
 import github.lucasramallo.hopin.core.usecase.driver.CreateDriverUseCase;
 import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class DriverController {
     private CreateDriverUseCase createDriverUseCase;
 
     @PostMapping
-    public ResponseEntity<Any> createDriver(@RequestBody CreateDriverRequestDTO requestDTO) {
-        createDriverUseCase.excecute(requestDTO);
+    public ResponseEntity<Driver> createDriver(@RequestBody CreateDriverRequestDTO requestDTO) {
+        Driver driver = createDriverUseCase.execute(requestDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(driver);
     }
 }

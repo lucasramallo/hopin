@@ -1,7 +1,4 @@
 package github.lucasramallo.hopin.api.dtos;
-
-import jakarta.persistence.Column;
-
 import java.time.LocalDate;
 
 

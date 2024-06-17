@@ -16,21 +16,25 @@ public class CreateCabUseCase {
     private CabRepository repository;
 
     public Cab execute(CreateDriverRequestDTO resquest) {
+        Cab newCab = new Cab();
+        newCab.setId(UUID.randomUUID());
+        newCab.setModel(resquest.model());
+
+        validatePlate(resquest.plateNum());
+        newCab.setPlateNum(resquest.plateNum());
+
+        newCab.setColor(resquest.color());
+
+        repository.save(newCab);
+        return newCab;
+    }
+
+    public void validatePlate(String plate) {
         Pattern pattern = Pattern.compile("[A-Z]{3}-[0-9]{4}");
-        Matcher matcher = pattern.matcher(resquest.plateNum());
+        Matcher matcher = pattern.matcher(plate);
 
         if(!matcher.matches()) {
             throw new RuntimeException("Placa Inválida");
         }
-
-        Cab newCab = new Cab();
-        newCab.setId(UUID.randomUUID());
-        newCab.setModel(resquest.model());
-        newCab.setPlateNum(resquest.plateNum());
-        newCab.setColor(resquest.color());
-
-        repository.save(newCab);
-
-        return newCab;
     }
 }
