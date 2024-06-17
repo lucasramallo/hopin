@@ -19,6 +19,9 @@ public class Driver {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String password;
+
     @OneToOne
     @JoinColumn(name = "cab_id")
     private Cab cab;

@@ -21,6 +21,9 @@ public class Customer {
     private String name;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(name = "created_at", nullable = false)

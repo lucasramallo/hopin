@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreateDriverUseCaseTest {
     @Mock
     private DriverRepository repository;
+
     @Mock
     private CreateCabUseCase createCabUseCase;
 
@@ -42,6 +43,7 @@ class CreateDriverUseCaseTest {
     void Case01() {
         CreateDriverRequestDTO requestDTO = new CreateDriverRequestDTO(
                 "João Lucas",
+                "senha", // TODO: Create password test
                 LocalDate.parse("1998-12-13"),
                 "Toyota Corolla",
                 "Prata",
@@ -70,8 +72,10 @@ class CreateDriverUseCaseTest {
     void case02() {
         CreateDriverRequestDTO requestDTO = new CreateDriverRequestDTO(
                 "invalid",
+                "senha",
                 LocalDate.parse("1998-12-13"),
-                "Toyota Corolla", "Prata",
+                "Toyota Corolla",
+                "Prata",
                 "XYZ-1234"
         );
 
@@ -83,8 +87,10 @@ class CreateDriverUseCaseTest {
     void case03() {
         CreateDriverRequestDTO requestDTO = new CreateDriverRequestDTO(
                 "invalid",
+                "senha",
                 LocalDate.now(),
-                "Toyota Corolla", "Prata",
+                "Toyota Corolla",
+                "Prata",
                 "XYZ-1234"
         );
 

@@ -1,0 +1,5 @@
+ALTER TABLE drivers
+ADD COLUMN password VARCHAR NOT NULL;
+
+ALTER TABLE customers
+ADD COLUMN password VARCHAR NOT NULL;

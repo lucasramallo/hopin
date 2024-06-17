@@ -31,6 +31,8 @@ public class CreateDriverUseCase {
         validateName(createDriverRequestDTO.name());
         newDriver.setName(createDriverRequestDTO.name());
 
+        newDriver.setPassword(createDriverRequestDTO.password());
+
         validateAge(createDriverRequestDTO.dateOfBirth());
         newDriver.setDateOfBirth(createDriverRequestDTO.dateOfBirth());
 
