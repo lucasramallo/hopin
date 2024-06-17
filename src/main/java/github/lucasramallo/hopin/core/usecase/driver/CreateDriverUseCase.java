@@ -1,6 +1,6 @@
 package github.lucasramallo.hopin.core.usecase.driver;
 
-import github.lucasramallo.hopin.api.dtos.CreateDriverRequestDTO;
+import github.lucasramallo.hopin.api.dtos.driver.CreateDriverRequestDTO;
 import github.lucasramallo.hopin.core.domain.cab.Cab;
 import github.lucasramallo.hopin.core.domain.driver.Driver;
 import github.lucasramallo.hopin.core.usecase.cab.CreateCabUseCase;

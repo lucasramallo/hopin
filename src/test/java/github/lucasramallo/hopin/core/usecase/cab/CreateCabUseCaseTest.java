@@ -1,6 +1,6 @@
 package github.lucasramallo.hopin.core.usecase.cab;
 
-import github.lucasramallo.hopin.api.dtos.CreateDriverRequestDTO;
+import github.lucasramallo.hopin.api.dtos.driver.CreateDriverRequestDTO;
 import github.lucasramallo.hopin.core.domain.cab.Cab;
 import github.lucasramallo.hopin.data.jpa.CabRepository;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package github.lucasramallo.hopin.api.dtos;
+package github.lucasramallo.hopin.api.dtos.driver;
 import java.time.LocalDate;
 
 
