@@ -25,10 +25,10 @@ public class Customer {
     private String name;
 
     @Column(nullable = false)
-    private String password;
+    private String email;
 
     @Column(nullable = false)
-    private String email;
+    private String password;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

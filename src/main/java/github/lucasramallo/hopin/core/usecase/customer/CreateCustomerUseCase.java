@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +19,11 @@ public class CreateCustomerUseCase {
 
     public Customer execute(CreateCustomerRequestDTO requestDTO) {
         Customer newCustomer = new Customer();
+
+        Optional<Customer> existingCustomer = repository.findByEmail(requestDTO.email());
+        if(existingCustomer.isPresent()) {
+            throw new RuntimeException("Email já cadastrado!");
+        }
 
         newCustomer.setID(UUID.randomUUID());
 
