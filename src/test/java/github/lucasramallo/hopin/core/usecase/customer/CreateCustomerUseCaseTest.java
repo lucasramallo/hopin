@@ -1,7 +1,6 @@
 package github.lucasramallo.hopin.core.usecase.customer;
 
 import github.lucasramallo.hopin.api.dtos.customer.CreateCustomerRequestDTO;
-import github.lucasramallo.hopin.api.dtos.driver.CreateDriverRequestDTO;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
 import github.lucasramallo.hopin.data.jpa.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
