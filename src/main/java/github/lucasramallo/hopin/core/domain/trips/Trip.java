@@ -30,6 +30,7 @@ public class Trip {
     private Payment payment;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(nullable = false)

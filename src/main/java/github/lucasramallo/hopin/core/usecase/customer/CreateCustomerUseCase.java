@@ -25,7 +25,7 @@ public class CreateCustomerUseCase {
             throw new RuntimeException("Email já cadastrado!");
         }
 
-        newCustomer.setID(UUID.randomUUID());
+        newCustomer.setId(UUID.randomUUID());
 
         validateName(requestDTO.name());
         newCustomer.setName(requestDTO.name());

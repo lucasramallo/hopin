@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Customer {
     @Id
     @Column()
-    private UUID ID;
+    private UUID Id;
 
     @Column(nullable = false)
     private String name;

@@ -10,11 +10,6 @@ Este documento de visão descreve os requisitos e a arquitetura para o desenvolv
 
 O sistema backend será responsável por gerenciar usuários, motoristas, corridas, pagamentos e comunicação em tempo real. O projeto abrangerá a criação de APIs RESTful para suportar operações de front-end, garantindo segurança, escalabilidade e desempenho.
 
-### 1.3 Definições, Acrônimos e Abreviações
-
-- **API**: Application Programming Interface
-- **REST**: Representational State Transfer
-- **JSON**: JavaScript Object Notation
 
 ## 2. Descrição Geral
 
