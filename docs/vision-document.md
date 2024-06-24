@@ -18,7 +18,7 @@ O sistema backend será responsável por gerenciar usuários, motoristas, corrid
 Desenvolver um sistema backend robusto para um aplicativo de transporte que permita:
 
 - Registro e autenticação de usuários e motoristas.
-- Solicitação, rastreamento e conclusão de corridas.
+- Solicitação e conclusão de corridas.
 - Processamento de pagamentos e gerenciamento de faturas.
 - Comunicação em tempo real entre usuários e motoristas.
 
@@ -27,12 +27,6 @@ Desenvolver um sistema backend robusto para um aplicativo de transporte que perm
 - Usuários finais que procuram serviços de transporte.
 - Motoristas que desejam oferecer serviços de transporte.
 - Administradores do sistema para gerenciamento e manutenção.
-
-### 2.3 Suposições e Dependências
-
-- A infraestrutura será hospedada em um ambiente de nuvem (por exemplo, AWS, GCP).
-- O sistema usará um banco de dados relacional (por exemplo, PostgreSQL) e um banco de dados em tempo real (por exemplo, Firebase).
-- Integração com serviços de terceiros para processamento de pagamentos (por exemplo, Stripe, PayPal).
 
 ## 3. Funcionalidades do Sistema
 
