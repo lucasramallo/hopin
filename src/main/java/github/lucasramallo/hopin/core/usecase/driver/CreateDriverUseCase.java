@@ -44,7 +44,7 @@ public class CreateDriverUseCase {
         return newDriver;
     }
 
-    public void validateName(String name) {
+    public static void validateName(String name) {
         Pattern pattern = Pattern.compile("^[A-ZÀ-ÿ][A-Za-zÀ-ÿ ]{0,28}$");
         Matcher matcher = pattern.matcher(name);
 
@@ -53,7 +53,7 @@ public class CreateDriverUseCase {
         }
     }
 
-    public void validateAge(LocalDate age) {
+    public static void validateAge(LocalDate age) {
         int driverAge = Period.between(age, LocalDate.now()).getYears();
 
         if(driverAge < 18) {

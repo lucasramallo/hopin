@@ -1,12 +1,11 @@
 package github.lucasramallo.hopin.api.controllers;
 
-import github.lucasramallo.hopin.api.dtos.customer.CreateCustomerRequestDTO;
-import github.lucasramallo.hopin.api.dtos.customer.CreateCustomerResponseDTO;
-import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationRequestDTO;
-import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationResponseDTO;
+import github.lucasramallo.hopin.api.dtos.customer.*;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
 import github.lucasramallo.hopin.core.usecase.customer.CreateCustomerUseCase;
-import github.lucasramallo.hopin.core.usecase.driver.GetCustomerProfileInfo;
+import github.lucasramallo.hopin.core.usecase.customer.EditCustumerUseCase;
+import github.lucasramallo.hopin.core.usecase.customer.GetCustomerProfileInfo;
+import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,9 @@ public class CustomerController {
 
     @Autowired
     private GetCustomerProfileInfo getCustomerProfileInfo;
+
+    @Autowired
+    private EditCustumerUseCase editCustumerUseCase;
 
     @PostMapping()
     public ResponseEntity<CreateCustomerResponseDTO> CreateCustomer(@RequestBody CreateCustomerRequestDTO requestDTO) {
@@ -40,5 +42,11 @@ public class CustomerController {
     public ResponseEntity<CustomerInformationResponseDTO> GetCustomerrProfileInfo(@PathVariable UUID userId) {
         CustomerInformationResponseDTO responseDTO = getCustomerProfileInfo.execute(new CustomerInformationRequestDTO(userId));
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @PutMapping("/profile/{userId}")
+    public ResponseEntity<Any> editCustomer(@PathVariable UUID userId, @RequestBody EditCustomerResquestDTO resquestDTO) {
+        editCustumerUseCase.execute(userId, resquestDTO);
+        return ResponseEntity.ok().build();
     }
 }

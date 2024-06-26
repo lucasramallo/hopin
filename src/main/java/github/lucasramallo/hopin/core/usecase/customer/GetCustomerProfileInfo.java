@@ -1,4 +1,4 @@
-package github.lucasramallo.hopin.core.usecase.driver;
+package github.lucasramallo.hopin.core.usecase.customer;
 
 import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationRequestDTO;
 import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationResponseDTO;
