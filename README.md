@@ -1,4 +1,4 @@
-# Hopin
+# HopIn
 
 O Hopin é um projeto desenvolvido para fins de estudo do Spring Boot, com o objetivo de replicar funcionalidades básicas do Uber.
 
