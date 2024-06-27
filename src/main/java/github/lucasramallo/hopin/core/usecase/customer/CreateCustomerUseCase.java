@@ -2,6 +2,8 @@ package github.lucasramallo.hopin.core.usecase.customer;
 
 import github.lucasramallo.hopin.api.dtos.customer.CreateCustomerRequestDTO;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
+import github.lucasramallo.hopin.core.domain.customer.exceptions.EmailAlreadyRegisteredException;
+import github.lucasramallo.hopin.core.domain.customer.util.CustomerValidations;
 import github.lucasramallo.hopin.data.jpa.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,44 +20,19 @@ public class CreateCustomerUseCase {
     private CustomerRepository repository;
 
     public Customer execute(CreateCustomerRequestDTO requestDTO) {
+        CustomerValidations.verifyEmailAlreadyRegistered(repository, requestDTO.email());
+        CustomerValidations.validateName(requestDTO.name());
+        CustomerValidations.validateEmial(requestDTO.email());
+
         Customer newCustomer = new Customer();
-
-        Optional<Customer> existingCustomer = repository.findByEmail(requestDTO.email());
-        if(existingCustomer.isPresent()) {
-            throw new RuntimeException("Email já cadastrado!");
-        }
-
         newCustomer.setId(UUID.randomUUID());
-
-        validateName(requestDTO.name());
         newCustomer.setName(requestDTO.name());
-
-        validateEmial(requestDTO.email());
         newCustomer.setEmail(requestDTO.email());
-
         newCustomer.setPassword(requestDTO.password());
         newCustomer.setCreatedAt(LocalDateTime.now());
 
         repository.save(newCustomer);
 
         return newCustomer;
-    }
-
-    public void validateName(String name) {
-        Pattern pattern = Pattern.compile("^[A-ZÀ-ÿ][A-Za-zÀ-ÿ ]{0,28}$");
-        Matcher matcher = pattern.matcher(name);
-
-        if (!matcher.matches()) {
-            throw new RuntimeException("Invalid name!");
-        }
-    }
-
-    public void validateEmial(String name) {
-        Pattern pattern = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
-        Matcher matcher = pattern.matcher(name);
-
-        if (!matcher.matches()) {
-            throw new RuntimeException("Invalid email!");
-        }
     }
 }

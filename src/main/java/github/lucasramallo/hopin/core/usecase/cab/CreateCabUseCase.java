@@ -2,6 +2,7 @@ package github.lucasramallo.hopin.core.usecase.cab;
 
 import github.lucasramallo.hopin.api.dtos.driver.CreateDriverRequestDTO;
 import github.lucasramallo.hopin.core.domain.cab.Cab;
+import github.lucasramallo.hopin.core.domain.cab.exceptions.InvalidPlateException;
 import github.lucasramallo.hopin.data.jpa.CabRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class CreateCabUseCase {
         Matcher matcher = pattern.matcher(plate);
 
         if(!matcher.matches()) {
-            throw new RuntimeException("Placa Inválida");
+            throw new InvalidPlateException("Placa Inválida");
         }
     }
 }

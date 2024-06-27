@@ -5,6 +5,7 @@ import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationResponseDT
 import github.lucasramallo.hopin.api.dtos.trip.TripDTOMapper;
 import github.lucasramallo.hopin.api.dtos.trip.TripResponseDTO;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
+import github.lucasramallo.hopin.core.domain.customer.exceptions.CustomerNotFoundException;
 import github.lucasramallo.hopin.core.domain.trips.Trip;
 import github.lucasramallo.hopin.data.jpa.CustomerRepository;
 import github.lucasramallo.hopin.data.jpa.TripRepository;
@@ -29,7 +30,7 @@ public class GetCustomerProfileInfoUseCase {
         ArrayList<Trip> trips = tripRepository.findAllByCustomerId(request.id());
 
         if(customer.isEmpty()) {
-            throw new RuntimeException("User not found!");
+            throw new CustomerNotFoundException("User not found!");
         }
 
         List<TripResponseDTO> tripsResponseDTOs = trips.stream()

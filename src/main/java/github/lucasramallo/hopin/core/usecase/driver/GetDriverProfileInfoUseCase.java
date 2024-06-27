@@ -5,6 +5,7 @@ import github.lucasramallo.hopin.api.dtos.driver.DriverInformationResponseDTO;
 import github.lucasramallo.hopin.api.dtos.trip.TripDTOMapper;
 import github.lucasramallo.hopin.api.dtos.trip.TripResponseDTO;
 import github.lucasramallo.hopin.core.domain.driver.Driver;
+import github.lucasramallo.hopin.core.domain.driver.exceptions.DriverNotFoundException;
 import github.lucasramallo.hopin.core.domain.trips.Trip;
 import github.lucasramallo.hopin.data.jpa.DriverRepository;
 import github.lucasramallo.hopin.data.jpa.TripRepository;
@@ -29,7 +30,7 @@ public class GetDriverProfileInfoUseCase {
         ArrayList<Trip> trips = tripRepository.findAllByDriverId(requestDTO.id());
 
         if(driver.isEmpty()) {
-            throw new RuntimeException("Driver not found!");
+            throw new DriverNotFoundException("Driver not found!");
         }
 
         List<TripResponseDTO> tripsResponseDTOs = trips.stream()

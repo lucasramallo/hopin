@@ -1,5 +1,8 @@
 package github.lucasramallo.hopin.core.domain.driver.util;
 
+import github.lucasramallo.hopin.core.domain.driver.exceptions.UnderageDriverException;
+import github.lucasramallo.hopin.core.globalExceptions.InvalidUserNameException;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.regex.Matcher;
@@ -11,7 +14,7 @@ public class DriverValidations {
         Matcher matcher = pattern.matcher(name);
 
         if (!matcher.matches()) {
-            throw new RuntimeException("Invalid name!");
+            throw new InvalidUserNameException("Invalid name!");
         }
     }
 
@@ -19,7 +22,7 @@ public class DriverValidations {
         int driverAge = Period.between(age, LocalDate.now()).getYears();
 
         if(driverAge < 18) {
-            throw new RuntimeException("O motorista deve ser maior de idade!");
+            throw new UnderageDriverException("O motorista deve ser maior de idade!");
         }
     }
 }

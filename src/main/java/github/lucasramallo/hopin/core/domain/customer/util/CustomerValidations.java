@@ -1,15 +1,42 @@
 package github.lucasramallo.hopin.core.domain.customer.util;
 
+import github.lucasramallo.hopin.core.domain.customer.Customer;
+import github.lucasramallo.hopin.core.domain.customer.exceptions.EmailAlreadyRegisteredException;
+import github.lucasramallo.hopin.core.globalExceptions.InvalidEmailException;
+import github.lucasramallo.hopin.core.globalExceptions.InvalidUserNameException;
+import github.lucasramallo.hopin.data.jpa.CustomerRepository;
+
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CustomerValidations {
+    public static void verifyEmailAlreadyRegistered(CustomerRepository repository, String email) {
+        Optional<Customer> existingCustomer = repository.findByEmail(email);
+        if(existingCustomer.isPresent()) {
+            throw new EmailAlreadyRegisteredException("Email já cadastrado!");
+        }
+    }
+
+    public static void verifyEmailAlreadyRegistered(CustomerRepository repository, Customer customer, String email) {
+        Optional<Customer> existingCustomer = repository.findByEmail(email);
+
+        if(existingCustomer.isPresent()) {
+            String existingCustomerId = existingCustomer.get().getEmail();
+
+            if(!Objects.equals(existingCustomerId, customer.getEmail())) {
+                throw new EmailAlreadyRegisteredException("Email já cadastrado!");
+            }
+        }
+    }
+
     public static void validateName(String name) {
         Pattern pattern = Pattern.compile("^[A-ZÀ-ÿ][A-Za-zÀ-ÿ ]{5,50}$");
         Matcher matcher = pattern.matcher(name);
 
         if (!matcher.matches()) {
-            throw new RuntimeException("Invalid name!");
+            throw new InvalidUserNameException("Invalid name!");
         }
     }
 
@@ -18,7 +45,7 @@ public class CustomerValidations {
         Matcher matcher = pattern.matcher(name);
 
         if (!matcher.matches()) {
-            throw new RuntimeException("Invalid email!");
+            throw new InvalidEmailException("Invalid email!");
         }
     }
 }
