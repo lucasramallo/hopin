@@ -31,6 +31,7 @@ public class DriverController {
         DriverResponseDTO responseDTO = new DriverResponseDTO(
                 driver.getId(),
                 driver.getName(),
+                driver.getDateOfBirth(),
                 driver.getCab(),
                 driver.getCreatedAt()
         );
