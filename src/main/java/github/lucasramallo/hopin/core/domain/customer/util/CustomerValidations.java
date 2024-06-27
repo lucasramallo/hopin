@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class CustomerValidations {
     public static void validateName(String name) {
-        Pattern pattern = Pattern.compile("^[A-ZÀ-ÿ][A-Za-zÀ-ÿ ]{5,28}$");
+        Pattern pattern = Pattern.compile("^[A-ZÀ-ÿ][A-Za-zÀ-ÿ ]{5,50}$");
         Matcher matcher = pattern.matcher(name);
 
         if (!matcher.matches()) {

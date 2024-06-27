@@ -1,11 +1,8 @@
 package github.lucasramallo.hopin.api.dtos.customer;
 
-import github.lucasramallo.hopin.core.domain.customer.Customer;
-import github.lucasramallo.hopin.core.domain.trips.Trip;
-import jakarta.persistence.Column;
+import github.lucasramallo.hopin.api.dtos.trip.TripResponseDTO;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +11,6 @@ public record CustomerInformationResponseDTO(
         String name,
         String email,
         LocalDateTime createdAt,
-        ArrayList<Trip> trips
+        List<TripResponseDTO> trips
 ) {
 }

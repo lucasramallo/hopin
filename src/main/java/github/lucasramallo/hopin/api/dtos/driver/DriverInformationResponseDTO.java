@@ -1,17 +1,15 @@
 package github.lucasramallo.hopin.api.dtos.driver;
 
+import github.lucasramallo.hopin.api.dtos.trip.TripResponseDTO;
 import github.lucasramallo.hopin.core.domain.cab.Cab;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
 
-public record CreateDriverResponseDTO(
-        UUID id,
+public record DriverInformationResponseDTO(
         String name,
         LocalDate dateOfBirth,
         Cab cab,
-        LocalDateTime createdAt
-
-) {
-}
+        List<TripResponseDTO> trips
+)
+{}

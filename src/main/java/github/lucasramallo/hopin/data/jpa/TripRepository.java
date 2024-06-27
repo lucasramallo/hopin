@@ -11,4 +11,6 @@ import java.util.UUID;
 @Repository
 public interface TripRepository extends JpaRepository<Trip, UUID> {
     ArrayList<Trip> findAllByCustomerId(UUID customerId);
+
+    ArrayList<Trip> findAllByDriverId(UUID driverId);
 }
