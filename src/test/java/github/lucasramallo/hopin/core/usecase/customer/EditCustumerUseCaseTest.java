@@ -2,7 +2,10 @@ package github.lucasramallo.hopin.core.usecase.customer;
 
 import github.lucasramallo.hopin.api.dtos.customer.EditCustomerResquestDTO;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
+import github.lucasramallo.hopin.core.domain.customer.exceptions.EmailAlreadyRegisteredException;
 import github.lucasramallo.hopin.core.domain.customer.util.CustomerValidations;
+import github.lucasramallo.hopin.core.globalExceptions.InvalidEmailException;
+import github.lucasramallo.hopin.core.globalExceptions.InvalidUserNameException;
 import github.lucasramallo.hopin.data.jpa.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -60,7 +63,7 @@ class EditCustumerUseCaseTest {
 
         Mockito.when(repository.findByEmail("john2@gmail.com")).thenReturn(Optional.of(customerWithEmailAlreadyRegistered));
 
-        assertThrows(RuntimeException.class, () -> CustomerValidations.verifyEmailAlreadyRegistered(repository, customer, requestDTO.email()));
+        assertThrows(EmailAlreadyRegisteredException.class, () -> CustomerValidations.verifyEmailAlreadyRegistered(repository, customer, requestDTO.email()));
     }
 
     @Test
@@ -75,8 +78,29 @@ class EditCustumerUseCaseTest {
         assertDoesNotThrow(() -> CustomerValidations.verifyEmailAlreadyRegistered(repository, customer, requestDTO.email()));
     }
 
-    /**
-     * EDIT
-     * - deve lançar exceção caso o name ou o email sejam inválidos
-     */
+    @Test
+    @DisplayName("should throw an exception if the name or email is invalid.")
+    void case04() {
+        /*
+           NAME:
+            - Start with an uppercase letter (A-Z or À-ÿ).
+            - Follow with uppercase or lowercase letters (A-Z, a-z) or accented characters (À-ÿ) and spaces.
+            - Have a minimum length of 6 characters and a maximum of 51 characters.
+
+           EMAIL:
+            - Starts with a sequence that can have up to 64 characters, followed by "@".
+            - The username before "@" can include uppercase and lowercase letters (A-Z, a-z), digits (0-9), and the special characters "_" and "-".
+            - After "@", the email domain cannot start with "-" and must include uppercase and lowercase letters, digits, and the special character "-", followed by a "." and a sequence of lowercase letters (a-z) with at least two characters.
+         */
+
+        UUID id = UUID.randomUUID();
+        Customer customer = new Customer(id, "Will Smith", "john@gmail.com", "senha123", LocalDateTime.now());
+
+        EditCustomerResquestDTO InvalidDataDTO = new EditCustomerResquestDTO("Wil", "john");
+
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(customer));
+
+        assertThrows(InvalidUserNameException.class, () -> CustomerValidations.validateName(InvalidDataDTO.name()));
+        assertThrows(InvalidEmailException.class, () -> CustomerValidations.validateEmial(InvalidDataDTO.email()));
+    }
 }
