@@ -35,7 +35,7 @@ public class CreateCabUseCase {
         Matcher matcher = pattern.matcher(plate);
 
         if(!matcher.matches()) {
-            throw new InvalidPlateException("Placa Inválida");
+            throw new InvalidPlateException("Invalid Plate!");
         }
     }
 }

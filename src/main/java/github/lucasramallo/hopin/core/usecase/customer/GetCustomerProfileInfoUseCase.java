@@ -30,7 +30,7 @@ public class GetCustomerProfileInfoUseCase {
         ArrayList<Trip> trips = tripRepository.findAllByCustomerId(request.id());
 
         if(customer.isEmpty()) {
-            throw new CustomerNotFoundException("User not found!");
+            throw new CustomerNotFoundException();
         }
 
         List<TripResponseDTO> tripsResponseDTOs = trips.stream()

@@ -18,42 +18,42 @@ public class ExceptionDomainHandler {
 
     @ExceptionHandler(EmailAlreadyRegisteredException.class)
     public ResponseEntity<String> handrleEmailAlreadyRegistered(EmailAlreadyRegisteredException e) {
-        return new ResponseEntity<>("Email already registered!", HttpStatus.CONFLICT);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException e) {
-        return new ResponseEntity<>("Customer not found!", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     //Global
 
     @ExceptionHandler(InvalidUserNameException.class)
     public ResponseEntity<String> handleInvalidUserName(InvalidUserNameException e) {
-        return new ResponseEntity<>("Invalid name!", HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(InvalidEmailException.class)
     public ResponseEntity<String> handleInvalidEmail(InvalidEmailException e) {
-        return new ResponseEntity<>("Invalid email!", HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     // Diver
 
     @ExceptionHandler(UnderageDriverException.class)
     public ResponseEntity<String> handleUnderageDriver(UnderageDriverException e) {
-        return new ResponseEntity<>("Underage Driver!", HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(DriverNotFoundException.class)
     public ResponseEntity<String> handleDriverNotFound(DriverNotFoundException e) {
-        return new ResponseEntity<>("Driver not found!", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     //Cab
 
     @ExceptionHandler(InvalidPlateException.class)
     public ResponseEntity<String> handleInvalidPlate(InvalidPlateException e) {
-        return new ResponseEntity<>("Invalid Plate!", HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

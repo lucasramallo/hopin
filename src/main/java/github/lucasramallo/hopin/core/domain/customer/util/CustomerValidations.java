@@ -15,7 +15,7 @@ public class CustomerValidations {
     public static void verifyEmailAlreadyRegistered(CustomerRepository repository, String email) {
         Optional<Customer> existingCustomer = repository.findByEmail(email);
         if(existingCustomer.isPresent()) {
-            throw new EmailAlreadyRegisteredException("Email já cadastrado!");
+            throw new EmailAlreadyRegisteredException();
         }
     }
 
@@ -23,10 +23,11 @@ public class CustomerValidations {
         Optional<Customer> existingCustomer = repository.findByEmail(email);
 
         if(existingCustomer.isPresent()) {
-            String existingCustomerId = existingCustomer.get().getEmail();
+            String existingCustomerId = existingCustomer.get().getId().toString();
+            String customerId = customer.getId().toString();
 
-            if(!Objects.equals(existingCustomerId, customer.getEmail())) {
-                throw new EmailAlreadyRegisteredException("Email já cadastrado!");
+            if(!Objects.equals(existingCustomerId, customerId)) {
+                throw new EmailAlreadyRegisteredException();
             }
         }
     }

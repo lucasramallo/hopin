@@ -1,6 +1,7 @@
 package github.lucasramallo.hopin.core.usecase.customer;
 
 import github.lucasramallo.hopin.api.dtos.customer.CreateCustomerRequestDTO;
+import github.lucasramallo.hopin.api.dtos.customer.EditCustomerResquestDTO;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
 import github.lucasramallo.hopin.data.jpa.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;

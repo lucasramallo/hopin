@@ -22,7 +22,7 @@ public class DriverValidations {
         int driverAge = Period.between(age, LocalDate.now()).getYears();
 
         if(driverAge < 18) {
-            throw new UnderageDriverException("O motorista deve ser maior de idade!");
+            throw new UnderageDriverException("Underage Driver!");
         }
     }
 }

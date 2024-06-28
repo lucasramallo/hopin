@@ -20,8 +20,9 @@ public class EditCustumerUseCase {
         Optional<Customer> customer = repository.findById(id);
 
         if (customer.isEmpty()) {
-            throw new CustomerNotFoundException("Customer not found!");
+            throw new CustomerNotFoundException();
         }
+
         CustomerValidations.verifyEmailAlreadyRegistered(repository, customer.get(), requestDTO.email());
         CustomerValidations.validateName(requestDTO.name());
         CustomerValidations.validateEmial(requestDTO.email());
