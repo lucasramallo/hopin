@@ -10,7 +10,6 @@ public record CustomerInformationResponseDTO(
         UUID Id,
         String name,
         String email,
-        LocalDateTime createdAt,
-        List<TripResponseDTO> trips
+        LocalDateTime createdAt
 ) {
 }

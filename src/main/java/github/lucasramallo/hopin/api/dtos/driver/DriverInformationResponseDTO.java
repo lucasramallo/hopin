@@ -9,7 +9,6 @@ import java.util.List;
 public record DriverInformationResponseDTO(
         String name,
         LocalDate dateOfBirth,
-        Cab cab,
-        List<TripResponseDTO> trips
+        Cab cab
 )
 {}

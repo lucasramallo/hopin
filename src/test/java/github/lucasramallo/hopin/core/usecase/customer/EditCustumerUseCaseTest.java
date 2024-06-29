@@ -90,7 +90,8 @@ class EditCustumerUseCaseTest {
            EMAIL:
             - Starts with a sequence that can have up to 64 characters, followed by "@".
             - The username before "@" can include uppercase and lowercase letters (A-Z, a-z), digits (0-9), and the special characters "_" and "-".
-            - After "@", the email domain cannot start with "-" and must include uppercase and lowercase letters, digits, and the special character "-", followed by a "." and a sequence of lowercase letters (a-z) with at least two characters.
+            - After "@", the email domain cannot start with "-" and must include uppercase and lowercase letters, digits, and the special character "-",
+              followed by a "." and a sequence of lowercase letters (a-z) with at least two characters.
          */
 
         UUID id = UUID.randomUUID();

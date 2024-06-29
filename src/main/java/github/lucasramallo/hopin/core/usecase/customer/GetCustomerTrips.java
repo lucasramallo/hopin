@@ -2,6 +2,7 @@ package github.lucasramallo.hopin.core.usecase.customer;
 
 import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationRequestDTO;
 import github.lucasramallo.hopin.api.dtos.customer.CustomerInformationResponseDTO;
+import github.lucasramallo.hopin.api.dtos.customer.CustomerTripsResponseDTO;
 import github.lucasramallo.hopin.api.dtos.trip.TripDTOMapper;
 import github.lucasramallo.hopin.api.dtos.trip.TripResponseDTO;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
@@ -13,31 +14,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-public class GetCustomerProfileInfoUseCase {
+public class GetCustomerTrips {
     @Autowired
     private CustomerRepository repository;
 
     @Autowired
     private TripRepository tripRepository;
 
-    public CustomerInformationResponseDTO execute(CustomerInformationRequestDTO request) {
+    public CustomerTripsResponseDTO execute(CustomerInformationRequestDTO request, int page, int size) {
         Optional<Customer> customer = repository.findById(request.id());
 
         if(customer.isEmpty()) {
             throw new CustomerNotFoundException();
         }
 
-        return new CustomerInformationResponseDTO(
-                customer.get().getId(),
-                customer.get().getName(),
-                customer.get().getEmail(),
-                customer.get().getCreatedAt()
+        List<Trip> trips = tripRepository.findAllByCustomerId(customer.get().getId(), PageRequest.of(page, size));
+
+        List<TripResponseDTO> tripsResponseDTOs = trips.stream()
+                .map(TripDTOMapper::tripToDto)
+                .toList();
+
+        return new CustomerTripsResponseDTO(
+                tripsResponseDTOs
         );
     }
 }
