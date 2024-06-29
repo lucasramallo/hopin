@@ -8,6 +8,7 @@ import github.lucasramallo.hopin.core.usecase.cab.CreateCabUseCase;
 import github.lucasramallo.hopin.data.jpa.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class CreateDriverUseCase {
     @Autowired
     private CreateCabUseCase createCabUseCase;
 
+    @Transactional
     public Driver execute(CreateDriverRequestDTO createDriverRequestDTO) {
         DriverValidations.validateName(createDriverRequestDTO.name());
         DriverValidations.validateAge(createDriverRequestDTO.dateOfBirth());
