@@ -6,6 +6,7 @@ import github.lucasramallo.hopin.core.domain.customer.exceptions.EmailAlreadyReg
 import github.lucasramallo.hopin.core.domain.customer.util.CustomerValidations;
 import github.lucasramallo.hopin.data.jpa.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,9 @@ public class CreateCustomerUseCase {
     @Autowired
     private CustomerRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Customer execute(CreateCustomerRequestDTO requestDTO) {
         CustomerValidations.verifyEmailAlreadyRegistered(repository, requestDTO.email());
         CustomerValidations.validateName(requestDTO.name());
@@ -28,7 +32,10 @@ public class CreateCustomerUseCase {
         newCustomer.setId(UUID.randomUUID());
         newCustomer.setName(requestDTO.name());
         newCustomer.setEmail(requestDTO.email());
-        newCustomer.setPassword(requestDTO.password());
+
+        String encodedPassword = passwordEncoder.encode(requestDTO.password());
+        newCustomer.setPassword(encodedPassword);
+
         newCustomer.setCreatedAt(LocalDateTime.now());
 
         repository.save(newCustomer);

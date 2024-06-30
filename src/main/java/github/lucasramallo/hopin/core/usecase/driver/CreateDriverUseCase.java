@@ -7,6 +7,7 @@ import github.lucasramallo.hopin.core.domain.driver.util.DriverValidations;
 import github.lucasramallo.hopin.core.usecase.cab.CreateCabUseCase;
 import github.lucasramallo.hopin.data.jpa.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,16 +25,23 @@ public class CreateDriverUseCase {
     @Autowired
     private CreateCabUseCase createCabUseCase;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public Driver execute(CreateDriverRequestDTO createDriverRequestDTO) {
         DriverValidations.validateName(createDriverRequestDTO.name());
         DriverValidations.validateAge(createDriverRequestDTO.dateOfBirth());
 
         Cab driverCab = createCabUseCase.execute(createDriverRequestDTO);
+
         Driver newDriver = new Driver();
         newDriver.setId(UUID.randomUUID());
         newDriver.setName(createDriverRequestDTO.name());
-        newDriver.setPassword(createDriverRequestDTO.password());
+
+        String encodedPassword = passwordEncoder.encode(createDriverRequestDTO.password());
+        newDriver.setPassword(encodedPassword);
+
         newDriver.setDateOfBirth(createDriverRequestDTO.dateOfBirth());
         newDriver.setCab(driverCab);
         newDriver.setCreatedAt(LocalDateTime.now());
