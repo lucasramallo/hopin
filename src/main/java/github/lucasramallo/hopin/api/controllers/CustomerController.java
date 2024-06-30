@@ -18,9 +18,6 @@ import java.util.UUID;
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
-    private CreateCustomerUseCase createCustomerUseCase;
-
-    @Autowired
     private GetCustomerProfileInfoUseCase getCustomerProfileInfoUseCase;
 
     @Autowired
@@ -28,19 +25,6 @@ public class CustomerController {
 
     @Autowired
     private GetCustomerTrips getCustomerTrips;
-
-    @PostMapping()
-    public ResponseEntity<CustomerResponseDTO> CreateCustomer(@RequestBody CreateCustomerRequestDTO requestDTO) {
-        Customer customer = createCustomerUseCase.execute(requestDTO);
-        CustomerResponseDTO responseDTO = new CustomerResponseDTO(
-                customer.getId(),
-                customer.getName(),
-                customer.getEmail(),
-                customer.getCreatedAt()
-        );
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-    }
 
     @GetMapping("profile/{userId}")
     public ResponseEntity<CustomerInformationResponseDTO> GetCustomerProfileInfo(@PathVariable UUID userId) {

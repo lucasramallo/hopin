@@ -18,9 +18,6 @@ import java.util.UUID;
 @RequestMapping("/driver")
 public class DriverController {
     @Autowired
-    private CreateDriverUseCase createDriverUseCase;
-
-    @Autowired
     private GetDriverProfileInfoUseCase getDriverProfileInfoUseCase;
 
     @Autowired
@@ -28,20 +25,6 @@ public class DriverController {
 
     @Autowired
     private GetDriverTripsUseCase getDriverTripsUseCase;
-
-    @PostMapping
-    public ResponseEntity<DriverResponseDTO> createDriver(@RequestBody CreateDriverRequestDTO requestDTO) {
-        Driver driver = createDriverUseCase.execute(requestDTO);
-        DriverResponseDTO responseDTO = new DriverResponseDTO(
-                driver.getId(),
-                driver.getName(),
-                driver.getDateOfBirth(),
-                driver.getCab(),
-                driver.getCreatedAt()
-        );
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-    }
 
     @GetMapping("/profile/{id}")
     public ResponseEntity<DriverInformationResponseDTO> GetCustomerProfileInfo(@PathVariable UUID id) {
