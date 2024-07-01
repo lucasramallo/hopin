@@ -5,15 +5,17 @@ import github.lucasramallo.hopin.core.domain.customer.exceptions.CustomerNotFoun
 import github.lucasramallo.hopin.core.domain.customer.exceptions.EmailAlreadyRegisteredException;
 import github.lucasramallo.hopin.core.domain.driver.exceptions.DriverNotFoundException;
 import github.lucasramallo.hopin.core.domain.driver.exceptions.UnderageDriverException;
+import github.lucasramallo.hopin.core.globalExceptions.InvalidCredentialsException;
 import github.lucasramallo.hopin.core.globalExceptions.InvalidEmailException;
 import github.lucasramallo.hopin.core.globalExceptions.InvalidUserNameException;
+import github.lucasramallo.hopin.core.globalExceptions.RequiredFieldsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ExceptionDomainHandler {
+public class ExceptionsHandler {
     //Customer
 
     @ExceptionHandler(EmailAlreadyRegisteredException.class)
@@ -26,6 +28,11 @@ public class ExceptionDomainHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<String> handleInvalidCredentials(InvalidCredentialsException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
     //Global
 
     @ExceptionHandler(InvalidUserNameException.class)
@@ -35,6 +42,11 @@ public class ExceptionDomainHandler {
 
     @ExceptionHandler(InvalidEmailException.class)
     public ResponseEntity<String> handleInvalidEmail(InvalidEmailException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(RequiredFieldsException.class)
+    public ResponseEntity<String> handleRequiredFields(RequiredFieldsException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
