@@ -6,6 +6,7 @@ import github.lucasramallo.hopin.core.usecase.customer.CreateCustomerUseCase;
 import github.lucasramallo.hopin.core.usecase.customer.EditCustumerUseCase;
 import github.lucasramallo.hopin.core.usecase.customer.GetCustomerProfileInfoUseCase;
 import github.lucasramallo.hopin.core.usecase.customer.GetCustomerTrips;
+import jakarta.servlet.http.HttpServletRequest;
 import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,25 +27,28 @@ public class CustomerController {
     @Autowired
     private GetCustomerTrips getCustomerTrips;
 
-    @GetMapping("profile/{userId}")
-    public ResponseEntity<CustomerInformationResponseDTO> GetCustomerProfileInfo(@PathVariable UUID userId) {
-        CustomerInformationResponseDTO responseDTO = getCustomerProfileInfoUseCase.execute(new CustomerInformationRequestDTO(userId));
+    @GetMapping("/profile")
+    public ResponseEntity<CustomerInformationResponseDTO> GetCustomerProfileInfo(HttpServletRequest request) {
+        UUID customerId = UUID.fromString(request.getAttribute("user_id").toString());
+        CustomerInformationResponseDTO responseDTO = getCustomerProfileInfoUseCase.execute(new CustomerInformationRequestDTO(customerId));
         return ResponseEntity.ok(responseDTO);
     }
 
-    @GetMapping("trips/{userId}")
+    @GetMapping("/trips")
     public ResponseEntity<CustomerTripsResponseDTO> GetCustomerTrips(
-            @PathVariable UUID userId,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
+            @RequestParam(defaultValue = "5") int size,
+            HttpServletRequest request
     ) {
-        CustomerTripsResponseDTO responseDTO = getCustomerTrips.execute(new CustomerInformationRequestDTO(userId), page, size);
+        UUID customerId = UUID.fromString(request.getAttribute("user_id").toString());
+        CustomerTripsResponseDTO responseDTO = getCustomerTrips.execute(new CustomerInformationRequestDTO(customerId), page, size);
         return ResponseEntity.ok(responseDTO);
     }
 
-    @PutMapping("/profile/{userId}")
-    public ResponseEntity<Any> editCustomer(@PathVariable UUID userId, @RequestBody EditCustomerResquestDTO resquestDTO) {
-        editCustumerUseCase.execute(userId, resquestDTO);
+    @PutMapping("/profile")
+    public ResponseEntity<Any> editCustomer( HttpServletRequest request, @RequestBody EditCustomerResquestDTO resquestDTO) {
+        UUID customerId = UUID.fromString(request.getAttribute("user_id").toString());
+        editCustumerUseCase.execute(customerId, resquestDTO);
         return ResponseEntity.ok().build();
     }
 }

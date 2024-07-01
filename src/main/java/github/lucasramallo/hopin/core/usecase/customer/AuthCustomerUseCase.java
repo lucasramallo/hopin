@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import github.lucasramallo.hopin.api.dtos.customer.CustomerAuthRequestDTO;
 import github.lucasramallo.hopin.api.dtos.customer.CustomerAuthResponseDTO;
 import github.lucasramallo.hopin.api.dtos.customer.CustomerResponseDTO;
+import github.lucasramallo.hopin.api.security.JWTProvider;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
 import github.lucasramallo.hopin.core.domain.customer.exceptions.CustomerNotFoundException;
 import github.lucasramallo.hopin.core.globalExceptions.InvalidCredentialsException;
@@ -15,16 +16,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
+
 @Service
 public class AuthCustomerUseCase {
-    @Value("${JWT.secret.key}")
-    private String secretKey;
-
     @Autowired
     private CustomerRepository repository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JWTProvider jwtProvider;
 
     public CustomerAuthResponseDTO execute(CustomerAuthRequestDTO customerAuthRequestDTO) {
         if(customerAuthRequestDTO.email() == null || customerAuthRequestDTO.password() == null) {
@@ -41,10 +45,7 @@ public class AuthCustomerUseCase {
             throw new InvalidCredentialsException();
         }
 
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        String token = JWT.create().withIssuer("HopIn")
-                .withSubject(customer.getId().toString())
-                .sign(algorithm);
+        String token = jwtProvider.generateToken(customer);
 
         CustomerResponseDTO customerResponseDTO = new CustomerResponseDTO(
                 customer.getId(),

@@ -5,10 +5,7 @@ import github.lucasramallo.hopin.core.domain.customer.exceptions.CustomerNotFoun
 import github.lucasramallo.hopin.core.domain.customer.exceptions.EmailAlreadyRegisteredException;
 import github.lucasramallo.hopin.core.domain.driver.exceptions.DriverNotFoundException;
 import github.lucasramallo.hopin.core.domain.driver.exceptions.UnderageDriverException;
-import github.lucasramallo.hopin.core.globalExceptions.InvalidCredentialsException;
-import github.lucasramallo.hopin.core.globalExceptions.InvalidEmailException;
-import github.lucasramallo.hopin.core.globalExceptions.InvalidUserNameException;
-import github.lucasramallo.hopin.core.globalExceptions.RequiredFieldsException;
+import github.lucasramallo.hopin.core.globalExceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -48,6 +45,11 @@ public class ExceptionsHandler {
     @ExceptionHandler(RequiredFieldsException.class)
     public ResponseEntity<String> handleRequiredFields(RequiredFieldsException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<String> handleInvalidToken(InvalidTokenException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     // Diver
