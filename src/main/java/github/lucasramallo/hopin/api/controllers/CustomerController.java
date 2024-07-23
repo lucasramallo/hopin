@@ -1,7 +1,9 @@
 package github.lucasramallo.hopin.api.controllers;
 
+import com.stripe.model.PaymentIntent;
 import github.lucasramallo.hopin.api.dtos.customer.*;
 import github.lucasramallo.hopin.core.domain.customer.Customer;
+import github.lucasramallo.hopin.core.service.PaymentService;
 import github.lucasramallo.hopin.core.usecase.customer.CreateCustomerUseCase;
 import github.lucasramallo.hopin.core.usecase.customer.EditCustumerUseCase;
 import github.lucasramallo.hopin.core.usecase.customer.GetCustomerProfileInfoUseCase;
@@ -27,6 +29,9 @@ public class CustomerController {
     @Autowired
     private GetCustomerTrips getCustomerTrips;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @GetMapping("/profile")
     public ResponseEntity<CustomerInformationResponseDTO> GetCustomerProfileInfo(HttpServletRequest request) {
         UUID customerId = UUID.fromString(request.getAttribute("user_id").toString());
@@ -50,5 +55,11 @@ public class CustomerController {
         UUID customerId = UUID.fromString(request.getAttribute("user_id").toString());
         editCustumerUseCase.execute(customerId, resquestDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/payment")
+    public ResponseEntity<PaymentIntentDTO> editCustomer() {
+        PaymentIntentDTO paymentIntentDTO = paymentService.execute();
+        return ResponseEntity.ok(paymentIntentDTO);
     }
 }
