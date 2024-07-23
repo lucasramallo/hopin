@@ -15,16 +15,14 @@ Simulação de uma API para um aplicativo de transporte que permita:
 
 - Registro e autenticação de usuários e motoristas.
 - Solicitação e conclusão de corridas.
-- Processamento de pagamentos e gerenciamento de faturas.
-- Comunicação em tempo real entre usuários e motoristas.
 
 ## 3. Funcionalidades do Sistema
 
 ### 3.1 Registro e Autenticação
 
 - **Registro de Usuários**: Usuários podem criar contas usando email, número de telefone e senha.
-- **Registro de Motoristas**: Motoristas podem criar contas e enviar documentação para verificação.
-- **Autenticação**: Login e logout para usuários e motoristas, com suporte para autenticação via redes sociais (Google, Facebook).
+- **Registro de Motoristas**: Motoristas podem criar contas.
+- **Autenticação**: Login e logout para usuários e motoristas..
 
 ### 3.2 Gerenciamento de Perfil
 
@@ -38,22 +36,3 @@ Simulação de uma API para um aplicativo de transporte que permita:
 ### 3.4 Pagamentos e Faturamento
 
 - **Processamento de Pagamentos**: Integração com gateways de pagamento para cobrar usuários e pagar motoristas.
-- **Faturas**: Geração de faturas detalhadas para usuários e motoristas.
-
-### 3.5 Comunicação
-
-- **Mensagens em Tempo Real**: Chat entre usuários e motoristas antes e durante a corrida.
-- **Notificações**: Notificações push para atualizações sobre o status da corrida, pagamento, etc.
-
-## 4. Requisitos Não Funcionais
-
-### 4.1 Segurança
-
-- Implementação de autenticação e autorização seguras.
-- Criptografia de dados sensíveis.
-- Conformidade com regulamentações de proteção de dados (por exemplo, GDPR).
-
-### 4.5 Manutenibilidade
-
-- Código bem documentado e modular.
-- Testes automatizados (unitários, integração).
