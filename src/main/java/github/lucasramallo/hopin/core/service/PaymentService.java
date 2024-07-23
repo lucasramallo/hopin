@@ -44,6 +44,7 @@ public class PaymentService {
                     paymentIntent.getCreated(),
                     paymentIntent.getStatus()
             );
+
         } catch (StripeException e) {
             throw new RuntimeException(e);
         }
